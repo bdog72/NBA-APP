@@ -2,3 +2,8 @@
 murky-wood.surge.sh
 
 Users/brianbycynski/Downloads/nba_app/build
+
+
+2nd terminal command
+
+json-server --watch db.json --port 3004
