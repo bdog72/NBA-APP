@@ -39,7 +39,9 @@ class NewsList extends Component {
             )
             .then(response => {
                 this.setState({
-                    items: [...this.state.items, ...response.data]
+                    items: [...this.state.items, ...response.data],
+                    start,
+                    end
                 });
             });
     };
