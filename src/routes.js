@@ -8,6 +8,7 @@ import Layout from "./hoc/Layout/layout";
 import NewsArticles from "./components/Articles/News/Post/index";
 import VideoArticles from "./components/Articles/Videos/Video/index";
 import NewsMain from "./components/Articles/News/Main/index";
+import VideosMain from "./components/Articles/Videos/Main/index";
 
 class Routes extends Component {
     render() {
@@ -22,6 +23,7 @@ class Routes extends Component {
                         component={NewsArticles}
                     />
                     <Route path="/videos/:id" exact component={VideoArticles} />
+                    <Route path="/videos" exact component={VideosMain} />
                 </Switch>
             </Layout>
         );

@@ -11,7 +11,7 @@ const NewsMain = () => (
             start={0}
             end={3}
         />
-        <NewsList type="card" loadMore={true} start={3} amount={10} />
+        <NewsList type="cardMain" loadMore={true} start={3} amount={3} />
     </div>
 );
 
