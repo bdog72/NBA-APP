@@ -19,3 +19,11 @@
     box-sizing: border-box;
     font-weight: 300;
 }
+
+.logContainer button {
+    background: blue;
+    font-size: 13px;
+    padding: 13px;
+    color: #fff;
+    margin-top: 10px;
+}
