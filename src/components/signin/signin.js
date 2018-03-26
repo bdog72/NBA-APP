@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./signin.css";
+import { firebase } from "../../firebase";
 
 import FormField from "../widgets/FormFields/formFields";
 
@@ -60,8 +61,6 @@ class SignIn extends Component {
         newElement.touched = element.blur;
         newFormdata[element.id] = newElement;
 
-        console.log(newFormdata);
-
         this.setState({
             formdata: newFormdata
         });
@@ -108,9 +107,37 @@ class SignIn extends Component {
                     registerError: ""
                 });
                 if (type) {
-                    console.log("Log In");
+                    firebase
+                        .auth()
+                        .signInWithEmailAndPassword(
+                            dataToSubmit.email,
+                            dataToSubmit.password
+                        )
+                        .then(() => {
+                            this.props.history.push("/");
+                        })
+                        .catch(error => {
+                            this.setState({
+                                loading: false,
+                                registerError: error.message
+                            });
+                        });
                 } else {
-                    console.log("Register");
+                    firebase
+                        .auth()
+                        .createUserWithEmailAndPassword(
+                            dataToSubmit.email,
+                            dataToSubmit.password
+                        )
+                        .then(() => {
+                            this.props.history.push("/");
+                        })
+                        .catch(error => {
+                            this.setState({
+                                loading: false,
+                                registerError: error.message
+                            });
+                        });
                 }
             }
         }
@@ -130,6 +157,13 @@ class SignIn extends Component {
             </div>
         );
 
+    showError = () =>
+        this.state.registerError !== "" ? (
+            <div className={styles.error}>{this.state.registerError}</div>
+        ) : (
+            ""
+        );
+
     render() {
         return (
             <div className={styles.logContainer}>
@@ -146,6 +180,7 @@ class SignIn extends Component {
                         change={element => this.updateForm(element)}
                     />
                     {this.submitButton()}
+                    {this.showError()}
                 </form>
             </div>
         );
