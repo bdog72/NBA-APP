@@ -5,6 +5,7 @@ import { firebaseTeams } from "../../firebase";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
+import Uploader from "../widgets/FileUploader/fileUploader";
 
 class Dashboard extends Component {
     state = {
@@ -44,6 +45,11 @@ class Dashboard extends Component {
             },
             body: {
                 element: "texteditor",
+                value: "",
+                valid: true
+            },
+            image: {
+                element: "image",
                 value: "",
                 valid: true
             },
@@ -183,11 +189,23 @@ class Dashboard extends Component {
         });
     };
 
+    storeFilename = filename => {
+        this.updateForm(
+            {
+                id: "image"
+            },
+            filename
+        );
+    };
+
     render() {
         return (
             <div className={styles.postContainer}>
                 <form onSubmit={this.submitForm}>
                     <h2>Add Post</h2>
+                    <Uploader
+                        filename={filename => this.storeFilename(filename)}
+                    />
                     <FormField
                         id={"author"}
                         formdata={this.state.formdata.author}
